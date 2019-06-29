@@ -1,0 +1,34 @@
+{
+	"manifest_version": 2,
+	"name": "Printable – The Print Doctor",
+	"description": "Tweak style rules in a page to improve printability.",
+	"version": "0.5",
+	"applications":{
+		"gecko": {
+			"id": "{66e7b680-7956-46aa-98ee-d702338e1ee1}",
+			"strict_min_version": "60.0"
+		}
+	},
+	"developer": {
+		"name": "Jefferson \"jscher2000\" Scher",
+		"url": "https://github.com/jscher2000/"
+	},
+	"background": {
+		"scripts": [
+			"background.js"
+		]
+	},
+	"browser_action": {
+		"browser_style": true,
+		"default_icon": "icons/printer-syringe-32.png",
+		"default_title": "Call the doctor!"
+	},
+	"permissions": [
+		"activeTab"
+	],
+	"icons": {
+		"16": "icons/printer-syringe-16.png",
+		"32": "icons/printer-syringe-32.png",
+		"64": "icons/printer-syringe-64.png"
+	}
+}

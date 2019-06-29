@@ -1,0 +1,15 @@
+/* Printable */
+@media print {
+	html, body {
+		overflow: visible! important;
+		height: auto !important;
+		max-height: auto !important;
+	}
+	iframe {
+		overflow-x: visible! important;
+	}
+	div, main, article, section, table, p, 
+	h1, h2, h3, h4, h5, h6, header, footer {
+		box-shadow: none !important;
+	}
+}

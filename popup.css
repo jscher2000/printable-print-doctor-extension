@@ -1,0 +1,24 @@
+body {
+	margin: 0;
+	padding: 4px;
+	color: #000;
+	background-color: #068;
+	--body-size: 16px;
+	font-family: serif;
+	font-size: var(--body-size);
+}
+body * {
+	box-sizing: border-box;
+}
+#box {
+	padding: 1px 14px;
+	border: 1px solid #aaa;
+	background-color: #6df;
+}
+#box > * {
+	text-align: center;
+}
+#errs {
+	color: red;
+	background-color: #f4f4f4;
+}

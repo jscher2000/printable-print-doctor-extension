@@ -3,6 +3,7 @@
   version 0.1 - initial design
   version 0.2 - override fonts
   version 0.5 - move UI to toolbar popup panel
+  version 0.6 - force block display of certain elements (because print style sheet may be inconsistent)
 */
 
 /**** Set up toolbar button listener ****/

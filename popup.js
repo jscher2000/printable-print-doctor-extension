@@ -28,3 +28,5 @@ document.getElementById('btnPrintableFonts').addEventListener('click', printable
 // Future buttons?
 //document.getElementById('btnSansSerifFonts').addEventListener('click', printable_override_fontsSS, false);
 //document.getElementById('btnPrintableLinkURLs').addEventListener('click', printable_suppress_URLs, false);
+
+// TODO: something for fieldset's

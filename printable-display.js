@@ -27,8 +27,6 @@
 	var blocks = document.querySelectorAll('div,section,article,main,summary,details,aside,header,footer');
 	//console.log('Running printable_override_display and found ' + blocks.length + ' blocks!');
 	for (var i=0; i<blocks.length; i++) {
-		if (window.getComputedStyle(blocks[i],null).getPropertyValue("display") != "block"){
-			if (parseInt(window.getComputedStyle(blocks[i],null).getPropertyValue("height")) > 400) blocks[i].style.display="block";
-		}
+		if (parseInt(window.getComputedStyle(blocks[i],null).getPropertyValue("height")) > 400) blocks[i].setAttribute("forcedisplayblock", "true");
 	}
 })();

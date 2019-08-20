@@ -4,6 +4,7 @@
   version 0.2 - override fonts
   version 0.5 - move UI to toolbar popup panel
   version 0.6 - force block display of certain elements (because print style sheet may be inconsistent)
+  version 0.7 - force block display of html and body elements in printable-display.js
 */
 
 /**** Set up toolbar button listener ****/

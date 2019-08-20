@@ -23,9 +23,9 @@
 		TPD_style.appendChild(document.createTextNode("@media screen{\n" + elPr_screen + "}\n"));
 		document.body.appendChild(TPD_style);
 	}
-	// Override flex and inline-block on elements taller than 400px so they can be paginated
-	var blocks = document.querySelectorAll('div,section,article,main,summary,details,aside,header,footer');
-	//console.log('Running printable_override_display and found ' + blocks.length + ' blocks!');
+	// Override flex and inline-block on common container elements taller than 400px so they can be paginated
+	// BUG: overrides display:none, TODO: fix this bug
+	var blocks = document.querySelectorAll('html,body,div,section,article,main,summary,details,aside,header,footer');
 	for (var i=0; i<blocks.length; i++) {
 		if (parseInt(window.getComputedStyle(blocks[i],null).getPropertyValue("height")) > 400) blocks[i].setAttribute("forcedisplayblock", "true");
 	}

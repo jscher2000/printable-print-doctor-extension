@@ -15,4 +15,50 @@
 	[forcedisplayblock="true"] {
 		display: block !important;
 	}
+	[printpositionabsolute="true"] {
+		position: absolute !important;
+	}
+	[printpositionrelative="true"] {
+		position: relative !important;
+	}
+	[hidefromprint="true"], #fixedpositiontweakpanel {
+		visibility: collapse !important;
+		display: none !important;
+	}
+}
+@media screen {
+	[hidefromprint="true"]:hover {
+		opacity: 0.5 !important;
+		border: 3px dashed red !important;
+	}
+	#fixedpositiontweakpanel {
+		cursor: pointer !important;
+		font-size: 16px !important;
+		line-height: 20px !important;
+		color: #000 !important;
+		background-color: #eee !important;
+		border: 1px solid #333 !important;
+		border-radius: 6px !important;
+		padding: 4px 8px 8px !important;
+		position: absolute !important;
+		z-index: 9999 !important;
+		display: none;
+	}
+	#tweakpanelclose {
+		float: right;
+		padding: 0 6px;
+		font-size: 0.75em;
+		border: 1px solid #333;
+	}
+	#tweakpanelclose:hover {
+		color: #fff;
+		background-color: #d33;
+		cursor: pointer;
+	}
+	#fixedpositiontweakpanel form label {
+		margin-left: 24px;
+	}
+	[tweakpanelactive="true"], [tweakpanelactive="true"]:hover {
+		border: 4px dashed orange !important;
+	}
 }

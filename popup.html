@@ -7,13 +7,15 @@
 </head>
 <body>
 <div id="box">
-	<h3>Printable – The Print Doctor <em>Beta</em></h3>
+	<h3>Printable – The Print Doctor</h3>
 	<p><em>Please use caution with pages you cannot reload!</em></p>
-	<p><button id="btnPrintableDisplay">Override unbreakable display types</button></p>
-	<p><button id="btnPrintableFonts">Override unusual/downloadable fonts</button></p>
+	<p><button id="btnPrintableDisplay">Allow Page Breaks (Override unbreakable display types)</button></p>
+	<p><button id="btnPrintableFonts">Use Basic Fonts (Override unusual/downloadable fonts)</button></p>
 <!--	<p style="display:none"><button id="btnSansSerifFonts">Substitute sans-serif for downloaded fonts</button></p>
 	<p style="display:none"><button id="btnPrintableLinkURLs">Try to remove URLs after links</button></p> -->
+	<p><button id="btnFixedToAbsolute">Prevent Repeated Elements (Change fixed position to absolute)</button></p>
 	<p id="errs"></p>
+	<p><button id="btnPrintPreview">Call up Print Preview</button></p>
 </div>
 <script src="popup.js"></script>
 </html>

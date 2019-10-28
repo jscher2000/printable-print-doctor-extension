@@ -9,13 +9,30 @@
 <div id="box">
 	<h3>Printable – The Print Doctor</h3>
 	<p><em>Please use caution with pages you cannot reload!</em></p>
-	<p><button id="btnPrintableDisplay">Allow Page Breaks (Override unbreakable display types)</button></p>
-	<p><button id="btnPrintableFonts">Use Basic Fonts (Override unusual/downloadable fonts)</button></p>
+	<p><button id="btnPrintableDisplay" type="button">Allow Page Breaks (Override unbreakable display types)</button></p>
+	<p><button id="btnPrintableFonts" type="button">Use Basic Fonts (Override unusual/downloadable fonts)</button></p>
 <!--	<p style="display:none"><button id="btnSansSerifFonts">Substitute sans-serif for downloaded fonts</button></p>
 	<p style="display:none"><button id="btnPrintableLinkURLs">Try to remove URLs after links</button></p> -->
-	<p><button id="btnFixedToAbsolute">Prevent Repeated Elements (Change fixed position to absolute)</button></p>
+	<p><button id="btnFixedToAbsolute" type="button">Prevent Repeated Elements (Change fixed position to absolute)</button></p>
 	<p id="errs"></p>
-	<p><button id="btnPrintPreview">Call up Print Preview</button></p>
+	<p><button id="btnPrintPreview" type="button">Call up Print Preview</button></p>
+	<div id="printPDF"><form name="pdf" action="#">
+		<p><strong>Save as PDF</strong> (please apply any necessary fixes first)<br>
+			Orientation: <label><input type="radio" name="orientation" value="0" checked> Portrait</label>
+				<label><input type="radio" name="orientation" value="1"> Landscape</label> <button id="btnPrintPDF" type="button">Save as PDF</button><br>
+			Paper: <label><input type="radio" name="paper" value="L" checked> Letter</label>
+				<label><input type="radio" name="paper" value="A4"> A4</label><br>
+			Show: <label><input type="checkbox" name="showBackgroundColors" checked> Background Colors</label>
+				<label><input type="checkbox" name="showBackgroundImages" checked> Background Images</label><br>
+			Scaling: <label><input type="radio" name="scale" value="shrinkToFit" checked> Shrink to fit</label>
+				<label><input type="radio" name="scale" value="1.0"> 100%</label> 
+				<label><input type="radio" name="scale" value="0.9"> 90%</label> 
+				<label><input type="radio" name="scale" value="0.8"> 80%</label><br>
+			Header: <label><input type="checkbox" name="headerLeft" checked> Title</label>
+				<label><input type="checkbox" name="headerRight" checked> URL</label> &nbsp;|&nbsp;
+			Footer: <label><input type="checkbox" name="footerLeft" checked> Page</label>
+				<label><input type="checkbox" name="footerRight" checked> Date</label></p>
+	</form></div>
 </div>
 <script src="popup.js"></script>
 </html>

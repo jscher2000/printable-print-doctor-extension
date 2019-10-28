@@ -109,7 +109,7 @@
 					// Position and display panel
 					tweakpanel.style.display = 'block';
 					tweakpanel.style.left = (evt.clientX + 2) + 'px';
-					tweakpanel.style.top = (evt.clientY) + 'px';
+					tweakpanel.style.top = (evt.clientY + window.scrollY) + 'px';
 					// Mark the target
 					fixednode.setAttribute('tweakpanelactive', 'true');
 				}

@@ -21,22 +21,20 @@
 	[printpositionrelative="true"] {
 		position: relative !important;
 	}
-	[hidefromprint="true"], #fixedpositiontweakpanel {
+	[hidefromprint="true"], #fixedpositiontweakpanel, #displayfixtweakpanel {
 		visibility: collapse !important;
 		display: none !important;
 	}
 }
 @media screen {
-	[hidefromprint="true"]:hover {
-		opacity: 0.5 !important;
-		border: 3px dashed red !important;
-	}
-	#fixedpositiontweakpanel {
+	#fixedpositiontweakpanel, #displayfixtweakpanel {
 		cursor: pointer !important;
 		font-size: 16px !important;
+		font-weight: normal !important;
 		line-height: 20px !important;
 		color: #000 !important;
 		background-color: #eee !important;
+		text-align: left !important;
 		border: 1px solid #333 !important;
 		border-radius: 6px !important;
 		padding: 4px 8px 8px !important;
@@ -44,13 +42,18 @@
 		z-index: 9999 !important;
 		display: none;
 	}
-	#tweakpanelclose {
+	#fixedpositiontweakpanel label, #displayfixtweakpanel label,
+	#fixedpositiontweakpanel button, #displayfixtweakpanel button {
+		font-size: 16px !important;
+		font-weight: normal !important;
+	}
+	#tweakpanelclose, #dftweakpanelclose {
 		float: right;
 		padding: 0 6px;
 		font-size: 0.75em;
 		border: 1px solid #333;
 	}
-	#tweakpanelclose:hover {
+	#tweakpanelclose:hover, #dftweakpanelclose:hover {
 		color: #fff;
 		background-color: #d33;
 		cursor: pointer;
@@ -59,6 +62,13 @@
 		margin-left: 24px;
 	}
 	[tweakpanelactive="true"], [tweakpanelactive="true"]:hover {
-		border: 4px dashed orange !important;
+		outline: 4px dashed orange !important;
+	}
+	[dftweakpanelactive="true"], [dftweakpanelactive="true"]:hover {
+		outline: 4px dashed green !important;
+	}
+	[hidefromprint="true"]:hover, [dftweakpanelactive="true"][hidefromprint="true"] {
+		opacity: 0.5 !important;
+		outline: 2px dashed red !important;
 	}
 }

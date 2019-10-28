@@ -8,6 +8,7 @@
   version 0.8 - right-click context menu integration (needed for popups that hide the toolbar)
   version 0.9 - add Print Preview to right-click context menu integration
   version 1.0 - tools to unfix fixed position items, right-click > hide on printout
+  version 1.1 - Save as PDF on Windows, Linux; tweak panels for forced block
 */
 
 /**** Set up toolbar button listener ****/

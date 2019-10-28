@@ -22,3 +22,7 @@ body * {
 	color: red;
 	background-color: #f4f4f4;
 }
+#printPDF {
+	display: none;
+	border-top: 1px solid #eee;
+}

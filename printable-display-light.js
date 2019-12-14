@@ -160,67 +160,69 @@
 	// BUG: overrides display:none, TODO: provide UI to hide again (due to cross-site CSS issue, can't fix it completely)
 	//var blocks = document.querySelectorAll('html,body,div,section,article,main,summary,details,aside,header,footer');
 	var blocks = document.querySelectorAll('html,body,*:not(span):not(h1):not(h2):not(h3):not(h4):not(strong):not(em):not(font):not(img)');
-	var printRules = [];
+	var printRules = [], disp = '';
 	for (var i=0; i<blocks.length; i++) {
 		if (parseInt(window.getComputedStyle(blocks[i],null).getPropertyValue("height")) > 400){
 			disp = window.getComputedStyle(blocks[i],null).getPropertyValue("display");
 			if (doNotPrint(blocks[i])){
 				blocks[i].setAttribute('hidefromprint', 'true');
-			} else if (!blocks[i].hasAttribute("forcedisplayblock") && disp != 'none') {
-				blocks[i].setAttribute("forcedisplayblock", "true");
-				if (!['HTML','BODY'].includes(blocks[i].nodeName)){
-					blocks[i].setAttribute("dftweakable", "true");
-					blocks[i].addEventListener('mouseover', function(evt){
-						var tweakpanel = document.querySelector('#displayfixtweakpanel');
-						if (tweakpanel.style.display !== 'block'){
-							var nonblock = evt.target;
-							if (!nonblock.hasAttribute('dftweakable')) nonblock = evt.target.closest('[dftweakable="true"]');
-							if (!nonblock) return;
-							// Set up radio buttons
-							if (nonblock.hasAttribute('hidefromprint')) tweakpanel.querySelector('[value="hidden"]').checked = true;
-							else tweakpanel.querySelector('[value="print"]').checked = true;
-							// Position and display panel
-							tweakpanel.style.display = 'block';
-							tweakpanel.style.left = (evt.clientX + 2) + 'px';
-							tweakpanel.style.top = (evt.clientY + window.scrollY - 6) + 'px';
-							// Mark the target
-							nonblock.setAttribute('dftweakpanelactive', 'true');
-						} else { 
-							// Tweak panel is displayed but might need to move to a new element
-							var nonblock = evt.target;
-							// Is current element tweakable?
-							if (!nonblock.hasAttribute('dftweakable')) nonblock = evt.target.closest('[dftweakable="true"]');
-							if (!nonblock) return;
-							// Is this a new element?
-							var currTweakTarget = document.querySelector('[dftweakpanelactive="true"]');
-							if (nonblock === currTweakTarget) return;
-							// Is this element within a non-printing ancestor?
-							var npancestor = nonblock.closest('[hidefromprint="true"]');
-							if (npancestor && (npancestor !== nonblock)){
-								tweakpanel.querySelector('[value="hidden"]').checked = true;
-								return;
+			} else {
+				if (disp != 'block' && disp != 'none'){
+					blocks[i].setAttribute("forcedisplayblock", "true");
+					if (!['HTML','BODY'].includes(blocks[i].nodeName)){
+						blocks[i].setAttribute("dftweakable", "true");
+						blocks[i].addEventListener('mouseover', function(evt){
+							var tweakpanel = document.querySelector('#displayfixtweakpanel');
+							if (tweakpanel.style.display !== 'block'){
+								var nonblock = evt.target;
+								if (!nonblock.hasAttribute('dftweakable')) nonblock = evt.target.closest('[dftweakable="true"]');
+								if (!nonblock) return;
+								// Set up radio buttons
+								if (nonblock.hasAttribute('hidefromprint')) tweakpanel.querySelector('[value="hidden"]').checked = true;
+								else tweakpanel.querySelector('[value="print"]').checked = true;
+								// Position and display panel
+								tweakpanel.style.display = 'block';
+								tweakpanel.style.left = (evt.clientX + 2) + 'px';
+								tweakpanel.style.top = (evt.clientY + window.scrollY - 6) + 'px';
+								// Mark the target
+								nonblock.setAttribute('dftweakpanelactive', 'true');
+							} else { 
+								// Tweak panel is displayed but might need to move to a new element
+								var nonblock = evt.target;
+								// Is current element tweakable?
+								if (!nonblock.hasAttribute('dftweakable')) nonblock = evt.target.closest('[dftweakable="true"]');
+								if (!nonblock) return;
+								// Is this a new element?
+								var currTweakTarget = document.querySelector('[dftweakpanelactive="true"]');
+								if (nonblock === currTweakTarget) return;
+								// Is this element within a non-printing ancestor?
+								var npancestor = nonblock.closest('[hidefromprint="true"]');
+								if (npancestor && (npancestor !== nonblock)){
+									tweakpanel.querySelector('[value="hidden"]').checked = true;
+									return;
+								}
+								// Set up radio buttons
+								if (nonblock.hasAttribute('hidefromprint')) tweakpanel.querySelector('[value="hidden"]').checked = true;
+								else tweakpanel.querySelector('[value="print"]').checked = true;
+								// Position the panel
+								tweakpanel.style.left = (evt.clientX + 2) + 'px';
+								tweakpanel.style.top = (evt.clientY + window.scrollY - 6) + 'px';
+								// Switch the target
+								currTweakTarget.removeAttribute('dftweakpanelactive');
+								nonblock.setAttribute('dftweakpanelactive', 'true');
 							}
-							// Set up radio buttons
-							if (nonblock.hasAttribute('hidefromprint')) tweakpanel.querySelector('[value="hidden"]').checked = true;
-							else tweakpanel.querySelector('[value="print"]').checked = true;
-							// Position the panel
-							tweakpanel.style.left = (evt.clientX + 2) + 'px';
-							tweakpanel.style.top = (evt.clientY + window.scrollY - 6) + 'px';
-							// Switch the target
-							currTweakTarget.removeAttribute('dftweakpanelactive');
-							nonblock.setAttribute('dftweakpanelactive', 'true');
-						}
-					});
-					blocks[i].addEventListener('mouseout', function(evt){
-						var tweakpanel = document.querySelector('#displayfixtweakpanel');
-						if (evt.relatedTarget == tweakpanel) return;
-						var sameparent = evt.relatedTarget.closest('[dftweakpanelactive]');
-						if (sameparent) return;
-						// Hide the panel and unmark the target
-						tweakpanel.style.display = '';
-						var nonblock = evt.target.closest('[dftweakable="true"]');
-						nonblock.removeAttribute('dftweakpanelactive');
-					});
+						});
+						blocks[i].addEventListener('mouseout', function(evt){
+							var tweakpanel = document.querySelector('#displayfixtweakpanel');
+							if (evt.relatedTarget == tweakpanel) return;
+							var sameparent = evt.relatedTarget.closest('[dftweakpanelactive]');
+							if (sameparent) return;
+							// Hide the panel and unmark the target
+							tweakpanel.style.display = '';
+							var nonblock = evt.target.closest('[dftweakable="true"]');
+							nonblock.removeAttribute('dftweakpanelactive');
+						});
+					}
 				}
 			}
 		}

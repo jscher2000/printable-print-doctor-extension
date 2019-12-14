@@ -1,4 +1,24 @@
 // Button functions
+function printable_override_display_light(){
+	browser.tabs.insertCSS(
+		{
+			file: "/printable.css",
+			allFrames: true,
+			cssOrigin: "user"
+		}
+	).then(() => {
+		browser.tabs.executeScript(
+			{
+				file: "/printable-display-light.js",
+				allFrames: true
+			}
+		)
+	}).catch((err) => {
+		document.getElementById('errs').textContent = 'Error: ' + err.message;
+	});
+}
+document.getElementById('btnPrintableDisplayLight').addEventListener('click', printable_override_display_light, false);
+
 function printable_override_display(){
 	browser.tabs.insertCSS(
 		{

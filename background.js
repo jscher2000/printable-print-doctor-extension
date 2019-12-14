@@ -9,6 +9,7 @@
   version 0.9 - add Print Preview to right-click context menu integration
   version 1.0 - tools to unfix fixed position items, right-click > hide on printout
   version 1.1 - Save as PDF on Windows, Linux; tweak panels for forced block
+  verison 1.2 - add lighter version of forced block display to reduce collateral damage
 */
 
 /**** Set up toolbar button listener ****/

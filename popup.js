@@ -81,6 +81,16 @@ document.getElementById('btnFixedToAbsolute').addEventListener('click', printabl
 
 document.getElementById('btnPrintPreview').addEventListener('click', function(){browser.tabs.printPreview();}, false);
 
+function update_auto_preview(evt){
+	oPDFPrefs.autopreview = evt.target.checked;
+	// Save it to storage
+	browser.storage.local.set({PDFprefs: oPDFPrefs})
+		.then(function(){browser.runtime.sendMessage({"command": "updateprefs"});})
+		.catch((err) => {console.log('Error on browser.storage.local.set(): '+err.message);});
+}
+
+document.getElementById('chkAutoPreview').addEventListener('click', update_auto_preview, false);
+
 function saveAsPDF(evt){
 	// Set up the pageSettings object for PDF'ing, save dialog changes to storage for next time
 	var pageSettings = {
@@ -171,7 +181,8 @@ var oPDFPrefs = {
 	headerLeft: true,			// default left header = title
 	headerRight: true,			// default right header = URL
 	footerLeft: true,			// default left footer = page x of y
-	footerRight: true			// default right header = date
+	footerRight: true,			// default right header = date
+	autopreview: true			// whether to call Print Preview after applying a jab
 }
 // Update oPDFPrefs from storage
 var updtPrefs = browser.storage.local.get("PDFprefs").then((results) => {
@@ -200,6 +211,8 @@ updtPrefs.then(() => {
 	frm.headerRight.checked = oPDFPrefs.headerRight;
 	frm.footerLeft.checked = oPDFPrefs.footerLeft;
 	frm.footerRight.checked = oPDFPrefs.footerRight;
+	// Auto-Preview
+	document.getElementById('chkAutoPreview').checked = oPDFPrefs.autopreview;
 });
 
 // Future buttons?

@@ -26,3 +26,6 @@ body * {
 	display: none;
 	border-top: 1px solid #eee;
 }
+button, label {
+	font-family: sans-serif;
+}

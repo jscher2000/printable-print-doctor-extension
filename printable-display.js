@@ -225,4 +225,6 @@
 			}
 		}
 	}
+	// Send message to background script
+	browser.runtime.sendMessage({"command": "conditionalpreview"});
 })();

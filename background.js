@@ -9,7 +9,8 @@
   version 0.9 - add Print Preview to right-click context menu integration
   version 1.0 - tools to unfix fixed position items, right-click > hide on printout
   version 1.1 - Save as PDF on Windows, Linux; tweak panels for forced block
-  verison 1.2 - add lighter version of forced block display to reduce collateral damage
+  version 1.2 - add lighter version of forced block display to reduce collateral damage
+  version 1.3 - Call Print Preview automatically by default after making a change
 */
 
 /**** Set up toolbar button listener ****/
@@ -34,9 +35,15 @@ browser.menus.create({
   }
 })
 browser.menus.create({
+	id: "context_PrintableDisplayLight",
+	parentId: "context_printable",
+	title: "Allow Page Breaks (LIGHT) - Override unbreakable display types",
+	contexts: ["page", "frame", "audio", "image", "link", "selection", "video"]
+})
+browser.menus.create({
 	id: "context_PrintableDisplay",
 	parentId: "context_printable",
-	title: "Allow Page Breaks - Override unbreakable display types",
+	title: "Allow Page Breaks (DEEP) - Override unbreakable display types",
 	contexts: ["page", "frame", "audio", "image", "link", "selection", "video"]
 })
 browser.menus.create({
@@ -166,6 +173,14 @@ browser.menus.onClicked.addListener((menuInfo, currTab) => {
 });
 
 // Execute commands received from content
+let oPrefs = [];
+browser.storage.local.get("PDFprefs").then((results) => {
+	if (results.PDFprefs != undefined){
+		if (JSON.stringify(results.PDFprefs) != '{}'){
+			oPrefs = results.PDFprefs;
+		}
+	}
+});
 function handleMessage(request, sender, sendResponse){
 	if ('command' in request){
 		if (request.command == 'preview') {
@@ -173,7 +188,24 @@ function handleMessage(request, sender, sendResponse){
 			   from the currently active tab and not checking 
 			   and if necessary activating sender.tab.id */
 			browser.tabs.printPreview();
-		}		
+		}
+		if (request.command == 'updateprefs') {
+			browser.storage.local.get("PDFprefs").then((results) => {
+				if (results.PDFprefs != undefined){
+					if (JSON.stringify(results.PDFprefs) != '{}'){
+						oPrefs = results.PDFprefs;
+					}
+				}
+			});
+		}
+		if (request.command == 'conditionalpreview') {
+			if (!('autopreview' in oPrefs) || oPrefs.autopreview === true){
+				/* As a shortcut, we are assuming the command was sent
+				   from the currently active tab and not checking 
+				   and if necessary activating sender.tab.id */
+				browser.tabs.printPreview();
+			}
+		}
 	}
 }
 browser.runtime.onMessage.addListener(handleMessage);

@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "Printable – The Print Doctor",
 	"description": "Tweak style rules in a page to improve printability.",
-	"version": "1.2",
+	"version": "1.3",
 	"applications":{
 		"gecko": {
 			"id": "{66e7b680-7956-46aa-98ee-d702338e1ee1}",

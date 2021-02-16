@@ -53,17 +53,16 @@
 	}
 	// Create tweak panel and append to document.body if not already there
 	if (!document.querySelector('#displayfixtweakpanel')){
-		var tweakpanel = `<div id="displayfixtweakpanel">Node layout for printing:
+		// use a contextual fragment
+		var range = document.createRange();
+		range.selectNode(document.body.firstChild);
+		var frag = range.createContextualFragment(`<div id="displayfixtweakpanel">Node layout for printing:
 			<span id="dftweakpanelclose">X</span><br>
 			<form><label><input type="radio" name="tweakdisp" value="print">&nbsp;print</label>
 			<label><input type="radio" name="tweakdisp" value="hidden">&nbsp;hide</label><br>
 			<button id="dftweakprintpreview" type="button">Print Preview</button> 
 			<button id="disabledftweakpanels" type="button">Disable Tweaking</button>
-			</form></div>`;
-		// use a contextual fragment
-		var range = document.createRange();
-		range.selectNode(document.body.firstChild);
-		var frag = range.createContextualFragment(tweakpanel);
+			</form></div>`);
 		document.body.appendChild(frag);
 		// set up panel event handlers
 		document.querySelector('#displayfixtweakpanel').addEventListener('change', function(evt){
@@ -156,11 +155,11 @@
 		TPD_style.appendChild(document.createTextNode("@media screen{\n" + elPr_screen + "}\n"));
 		document.body.appendChild(TPD_style);
 	}
-	// Override flex and inline-block on elements taller than 400px so they can be paginated
+	// Override flex and inline-block on elements taller than 400px so they can be paginated + allow overflow
 	// BUG: overrides display:none, TODO: provide UI to hide again (due to cross-site CSS issue, can't fix it completely)
 	//var blocks = document.querySelectorAll('html,body,div,section,article,main,summary,details,aside,header,footer');
 	var blocks = document.querySelectorAll('html,body,*:not(span):not(h1):not(h2):not(h3):not(h4):not(strong):not(em):not(font):not(img)');
-	var printRules = [], disp = '';
+	var printRules = [], disp = '', overY = '';
 	for (var i=0; i<blocks.length; i++) {
 		if (parseInt(window.getComputedStyle(blocks[i],null).getPropertyValue("height")) > 400){
 			disp = window.getComputedStyle(blocks[i],null).getPropertyValue("display");
@@ -223,6 +222,11 @@
 							nonblock.removeAttribute('dftweakpanelactive');
 						});
 					}
+				}
+				// Allow overflow for printing, other than HTML, BODY and IFRAME which are handled elsewhere (version 1.4)
+				overY = window.getComputedStyle(blocks[i],null).getPropertyValue("overflow-y");
+				if (overY != 'visible' && disp != 'none' && !['HTML','BODY','IFRAME'].includes(blocks[i].nodeName)){
+					blocks[i].setAttribute("printallowoverflow", "true");
 				}
 			}
 		}

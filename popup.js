@@ -13,6 +13,8 @@ function printable_override_display_light(){
 				allFrames: true
 			}
 		)
+		// for Fx85 dialog, let's close the panel on autopreview
+		if (oPDFPrefs.autopreview) self.close();
 	}).catch((err) => {
 		document.getElementById('errs').textContent = 'Error: ' + err.message;
 	});
@@ -33,6 +35,8 @@ function printable_override_display(){
 				allFrames: true
 			}
 		)
+		// for Fx85 dialog, let's close the panel on autopreview
+		if (oPDFPrefs.autopreview) self.close();
 	}).catch((err) => {
 		document.getElementById('errs').textContent = 'Error: ' + err.message;
 	});
@@ -53,6 +57,8 @@ function printable_override_fonts(){
 				allFrames: true
 			}
 		)
+		// for Fx85 dialog, let's close the panel on autopreview
+		if (oPDFPrefs.autopreview) self.close();
 	}).catch((err) => {
 		document.getElementById('errs').textContent = 'Error: ' + err.message;
 	});
@@ -73,6 +79,8 @@ function printable_unfix_position(){
 				allFrames: true
 			}
 		)
+		// for Fx85 dialog, let's close the panel on autopreview
+		if (oPDFPrefs.autopreview) self.close();
 	}).catch((err) => {
 		document.getElementById('errs').textContent = 'Error: ' + err.message;
 	});

@@ -2,18 +2,17 @@
 	// Override position:fixed to position:absolute with ability to tweak
 	// Create tweak panel and append to document.body if not already there
 	if (!document.querySelector('#fixedpositiontweakpanel')){
-		var tweakpanel = `<div id="fixedpositiontweakpanel">Node layout for printing:
+		// use a contextual fragment
+		var range = document.createRange();
+		range.selectNode(document.body.firstChild);
+		var frag = range.createContextualFragment(`<div id="fixedpositiontweakpanel">Node layout for printing:
 			<span id="tweakpanelclose">X</span><br>
 			<form><label><input type="radio" name="tweakpos" value="absolute">&nbsp;absolute</label><br>
 			<label><input type="radio" name="tweakpos" value="relative">&nbsp;relative</label><br>
 			<label><input type="radio" name="tweakpos" value="hidden">&nbsp;hidden</label><br>
 			<button id="tweakprintpreview" type="button">Print Preview</button> 
 			<button id="disabletweakpanels" type="button">Disable Tweaking</button>
-			</form></div>`;
-		// use a contextual fragment
-		var range = document.createRange();
-		range.selectNode(document.body.firstChild);
-		var frag = range.createContextualFragment(tweakpanel);
+			</form></div>`);
 		document.body.appendChild(frag);
 		// set up panel event handlers
 		document.querySelector('#fixedpositiontweakpanel').addEventListener('change', function(evt){

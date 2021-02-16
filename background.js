@@ -1,5 +1,5 @@
 /* 
-  Copyright 2019. Jefferson "jscher2000" Scher. License: MPL-2.0.
+  Copyright 2021. Jefferson "jscher2000" Scher. License: MPL-2.0.
   version 0.1 - initial design
   version 0.2 - override fonts
   version 0.5 - move UI to toolbar popup panel
@@ -11,6 +11,7 @@
   version 1.1 - Save as PDF on Windows, Linux; tweak panels for forced block
   version 1.2 - add lighter version of forced block display to reduce collateral damage
   version 1.3 - Call Print Preview automatically by default after making a change
+  version 1.4 - Allow overflow for more elements; add missing menu action; close panel for autopreview
 */
 
 /**** Set up toolbar button listener ****/
@@ -75,6 +76,29 @@ browser.menus.create({
 browser.menus.onClicked.addListener((menuInfo, currTab) => {
 	// TODO: avoid duplicating code between this and popup.js
 	switch (menuInfo.menuItemId) {
+		case 'context_PrintableDisplayLight':
+			browser.tabs.insertCSS(
+				{
+					file: "/printable.css",
+					frameId: menuInfo.frameId,
+					cssOrigin: "user"
+				}
+			).then(() => {
+				browser.tabs.executeScript(
+					{
+						file: "/printable-display-light.js",
+						frameId: menuInfo.frameId
+					}
+				)
+			}).catch((err) => {
+				//console.log(err);
+				browser.tabs.executeScript(
+					{
+						code: `alert("Apologies, but it didn't work. Firefox says: '${err}'");`
+					}
+				)
+			});
+			break;
 		case 'context_PrintableDisplay':
 			browser.tabs.insertCSS(
 				{
